@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "dgSpecHash": "4FxyeIJEyQJoX9Aboa9HxeeaWkIkk42H7UTpGDKXI7yC6EaCZL8oFBq/DaIiFVHyURv28CMjCWdl6wVkMM4A2Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lieu.hong.thai\\source\\repos\\WpfApp2\\WpfApp2\\WpfApp2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\commonservicelocator\\2.0.4\\commonservicelocator.2.0.4.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\epplus\\4.1.1\\epplus.4.1.1.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\microsoft.office.interop.excel\\15.0.4795.1000\\microsoft.office.interop.excel.15.0.4795.1000.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\prism.core\\7.2.0.1422\\prism.core.7.2.0.1422.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\prism.unity\\7.2.0.1422\\prism.unity.7.2.0.1422.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\prism.wpf\\7.2.0.1422\\prism.wpf.7.2.0.1422.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\unity.abstractions\\5.11.1\\unity.abstractions.5.11.1.nupkg.sha512",
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\unity.container\\5.11.1\\unity.container.5.11.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EPPlus 4.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EPPlus",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Office.Interop.Excel 15.0.4795.1000' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Office.Interop.Excel",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}
