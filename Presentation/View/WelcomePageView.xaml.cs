@@ -5,6 +5,8 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.IO;
+using Prism.Services.Dialogs;
+
 namespace Presentation.View
 {
     /// <summary>
@@ -18,6 +20,22 @@ namespace Presentation.View
             this.DataContext = new WelcomePageViewModel();
         }
         string pathFile = "";
+        private void DialogResultButton(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("confirm!", "Some title", MessageBoxButton.OKCancel);
+            
+            if (messageBoxResult == MessageBoxResult.OK) {
+                textBlock1.Text = "true";
+            }
+            else if (messageBoxResult == MessageBoxResult.Cancel)
+            {
+                textBlock1.Text = "false1";
+            }
+            else
+            {
+                textBlock1.Text = "false2";
+            }
+        }
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -38,7 +56,7 @@ namespace Presentation.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            using (var package = new ExcelPackage(File.OpenRead(@"C:\Users\lieu.hong.thai\Documents\sourece tree\123.xlsx")))//new FileInfo("ImportData.xlsx")
+            using (var package = new ExcelPackage(new FileInfo(@"C:\Users\lieu.hong.thai\source\repos\WpfApp2\Presentation\bin\Debug\123.xlsx")))//new FileInfo("ImportData.xlsx")
             {
                 textBlock1.Text = package.Workbook.Worksheets.Count.ToString();
 

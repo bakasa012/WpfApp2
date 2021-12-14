@@ -46,3 +46,4 @@ C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\Sys
 C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\Presentation.dll.config

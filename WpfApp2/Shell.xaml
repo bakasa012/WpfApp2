@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"   
+        WindowStartupLocation="CenterScreen"
         Title="Shell" Height="450" Width="800">
     <Grid>
         <ItemsControl prism:RegionManager.RegionName="Shell"/>
