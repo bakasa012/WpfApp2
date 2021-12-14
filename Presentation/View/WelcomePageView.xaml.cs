@@ -17,6 +17,7 @@ namespace Presentation.View
             InitializeComponent();
             this.DataContext = new WelcomePageViewModel();
         }
+        string pathFile = "";
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -28,19 +29,29 @@ namespace Presentation.View
             {
                 FileNameTextBox.Text = openFileDialog.FileName;
                 //textBlock1.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
-
+                pathFile = openFileDialog.FileName;
             }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             using (var package = new ExcelPackage(new FileInfo("ImportData.xlsx")))
             {
-
+                //textBlock1.Text = package.Workbook.Worksheets.Count.ToString();
             }
 
+            var package2 = new ExcelPackage(File.OpenRead(pathFile));
 
-
+            textBlock1.Text = package2.Workbook.Worksheets.Count.ToString();
+            int counter = 0;
+            textBlock1.Text = "";
+            foreach (string item in File.ReadLines(pathFile))
+            {
+                System.Console.WriteLine(item);
+                textBlock1.Text += item.ToString()+counter.ToString();
+                counter++;
+            }
 
 
             /*List<DataBinddingExcel> dataBinddingExcels = new List<DataBinddingExcel>();
