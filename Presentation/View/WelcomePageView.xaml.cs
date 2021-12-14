@@ -36,21 +36,13 @@ namespace Presentation.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            using (var package = new ExcelPackage(new FileInfo("ImportData.xlsx")))
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (var package = new ExcelPackage(File.OpenRead(@"C:\Users\lieu.hong.thai\Documents\sourece tree\123.xlsx")))//new FileInfo("ImportData.xlsx")
             {
+                textBlock1.Text = package.Workbook.Worksheets.Count.ToString();
+
                 //textBlock1.Text = package.Workbook.Worksheets.Count.ToString();
-            }
-
-            var package2 = new ExcelPackage(File.OpenRead(pathFile));
-
-            textBlock1.Text = package2.Workbook.Worksheets.Count.ToString();
-            int counter = 0;
-            textBlock1.Text = "";
-            foreach (string item in File.ReadLines(pathFile))
-            {
-                System.Console.WriteLine(item);
-                textBlock1.Text += item.ToString()+counter.ToString();
-                counter++;
             }
 
 
