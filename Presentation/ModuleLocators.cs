@@ -28,7 +28,7 @@ namespace Presentation
         /// <param name="containerProvider"></param>  
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RegisterViewWithRegion("Shell", typeof(View.WelcomePageView));  //ModuleLocators is added for testing purpose,     
+            _regionManager.RegisterViewWithRegion("Shell", typeof(View.UserControl1));  //ModuleLocators is added for testing purpose,     
                                                                                            //later we'll replace it with WelcomePageView      
         }
 

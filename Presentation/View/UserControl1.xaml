@@ -7,7 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        
-            
+
+        <StackPanel>
+
+            <DataGrid Height="200" x:Name="dtgExcel" SelectionChanged="dtgExcel_SelectionChanged"></DataGrid>
+
+            <Button x:Name="btnImport" Click="btnImport_Click" Content="Import"></Button>
+
+            <Button x:Name="btnExport" Click="btnExport_Click" Content="Export"></Button>
+            <TextBlock Name="textBlock1" Text="DataTest"></TextBlock>
+            <Button Content="DialogFileOpen" Click="Button_Click"/>
+            <Button Content="ProcessExcel" Click="Button_Click_1"/>
+            <TextBox Text="file path" Name="FileNameTextBox"></TextBox>
+        </StackPanel>
     </Grid>
 </UserControl>

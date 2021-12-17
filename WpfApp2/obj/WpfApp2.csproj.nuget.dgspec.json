@@ -67,9 +67,17 @@
               "target": "Package",
               "version": "[5.8.3, )"
             },
+            "ExcelMapper": {
+              "target": "Package",
+              "version": "[5.2.337, )"
+            },
             "Microsoft.Office.Interop.Excel": {
               "target": "Package",
               "version": "[15.0.4795.1000, )"
+            },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.5.5, )"
             },
             "Prism.Unity": {
               "target": "Package",

@@ -47,3 +47,13 @@ C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\run
 C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\Presentation.dll.config
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\ExcelMapper.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\NPOI.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\NPOI.OOXML.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\ICSharpCode.SharpZipLib.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\NPOI.OpenXml4Net.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\NPOI.OpenXmlFormats.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\Users\lieu.hong.thai\source\repos\WpfApp2\WpfApp2\bin\Debug\netcoreapp3.1\System.Text.Json.dll

@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 using Prism.Services.Dialogs;
+using Ganss.Excel;
+using System.Linq;
 
 namespace Presentation.View
 {
@@ -102,9 +104,19 @@ namespace Presentation.View
         */
         }
 
-        void ReadFileExcel()
+        void ReadFileExcelWithExcelMapper(string pathFile)
         {
-            //var package = new ExcelPackage(new System.IO.FileInfo("Book 1.xlsx"));
+            var excel = new ExcelMapper(@pathFile);
+            var dataBinddingExcel = excel.Fetch<DataBinddingExcel>().ToList();
+            foreach (var item in dataBinddingExcel)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ReadFileExcelWithExcelMapper(pathFile);
         }
     }
 }
