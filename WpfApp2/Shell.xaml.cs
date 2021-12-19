@@ -141,11 +141,12 @@ namespace WpfApp2
             //cellStyleLabel.FillForegroundColor = HSSFColor.Gold.Index;
             //end
             //Merge column
-            CellRangeAddress cellRange = new CellRangeAddress(0,0,1,6);
+            CellRangeAddress cellRange = new CellRangeAddress(0, 0, 1, 7);
             sheet.AddMergedRegion(cellRange);
-            sheet.AddMergedRegion(new CellRangeAddress(3, 3, 5, 6));
-            sheet.AddMergedRegion(new CellRangeAddress(4, 4, 5, 6));
-            sheet.AddMergedRegion(new CellRangeAddress(5, 5, 3, 6));
+            sheet.AddMergedRegion(new CellRangeAddress(2, 2, 5, 7));
+            sheet.AddMergedRegion(new CellRangeAddress(3, 3, 5, 7));
+            sheet.AddMergedRegion(new CellRangeAddress(4, 4, 5, 7));
+            sheet.AddMergedRegion(new CellRangeAddress(5, 5, 3, 7));
             //set column width
             sheet.AutoSizeColumn(0);
             sheet.SetColumnWidth(1, 4000);
@@ -189,17 +190,19 @@ namespace WpfApp2
                 {
                     FontChange(wb, "label", newRow, 1);
                 }
+                if (rowIndex == 3)
+                {
+                    FontChange(wb, "bgBlack", newRow, 5);
+                    FontChange(wb, "bgBlack", newRow, 6);
+                    FontChange(wb, "bgBlack", newRow, 7);
+                }
                 if (rowIndex == 4)
                 {
                     FontChange(wb, "bgBlack", newRow, 3);
                     FontChange(wb, "bgBlack", newRow, 4);
                     FontChange(wb, "bgBlack", newRow, 5);
                     FontChange(wb, "bgBlack", newRow, 6);
-                }
-                if (rowIndex == 3)
-                {
-                    FontChange(wb, "bgBlack", newRow, 5);
-                    FontChange(wb, "bgBlack", newRow, 6);
+                    FontChange(wb, "bgBlack", newRow, 7);
                 }
                 rowIndex++;
             }
