@@ -97,7 +97,7 @@ namespace WpfApp2
                         {
                             column1 = nowRow.GetCell(0)?.ToString(),
                             column2 = nowRow.GetCell(1)?.ToString(),
-                            column3 = nowRow.GetCell(2)?.ToString(),
+                            column3 = nowRow.GetCell(2)?.ToString().Trim(),
                             column4 = nowRow.GetCell(3)?.ToString(),
                             column5 = nowRow.GetCell(4)?.ToString(),
                             column6 = nowRow.GetCell(5)?.ToString(),
@@ -141,7 +141,7 @@ namespace WpfApp2
             //cellStyleLabel.FillForegroundColor = HSSFColor.Gold.Index;
             //end
             //Merge column
-            CellRangeAddress cellRange = new CellRangeAddress(0,0,1,4);
+            CellRangeAddress cellRange = new CellRangeAddress(0,0,1,6);
             sheet.AddMergedRegion(cellRange);
             sheet.AddMergedRegion(new CellRangeAddress(3, 3, 5, 6));
             sheet.AddMergedRegion(new CellRangeAddress(4, 4, 5, 6));
@@ -161,34 +161,63 @@ namespace WpfApp2
             row.GetCell(1).SetCellValue(dataBinddingExcels[0].column2);
             FontChange(wb, "title", row, 1);
 
-            int rowIndex = 2;
+            int rowIndex = 1;
             dataBinddingExcels.RemoveAt(0);
+            //data header
             foreach (var item in dataBinddingExcels)
             {
                 var newRow = sheet.CreateRow(rowIndex);
                 newRow.CreateCell(0).SetCellValue(item.column1);
                 newRow.CreateCell(1).SetCellValue(item.column2);
-                if (item.column2 != null && item.column2 != "" && item.column2!= "null"&& rowIndex!=9&&rowIndex!=10)
-                {
-                    FontChange(wb, "label", newRow, 1);
-                }
+                
                 newRow.CreateCell(2).SetCellValue(item.column3);
                 
                 newRow.CreateCell(3).SetCellValue(item.column4);
-                if (rowIndex == 5)
-                    FontChange(wb, "bgBlack", newRow, 3);
-                FontChange(wb, "bgBlack", newRow, 4);
 
                 newRow.CreateCell(4).SetCellValue(item.column5);
                 
                 newRow.CreateCell(5).SetCellValue(item.column6);
-                if (rowIndex == 4)
-                {
-                    FontChange(wb, "bgBlack", newRow, 5);
-                }
+                
                 newRow.CreateCell(6).SetCellValue(item.column7);
                 newRow.CreateCell(7).SetCellValue(item.column8);
+                if (rowIndex != 8 && rowIndex != 9)
+                for (int i = 1; i <= 7; i++)
+                {
+                    FontChange(wb, "content", newRow, i);
+                }
+                if (item.column2 != null && item.column2 != "" && item.column2 != "null" && rowIndex != 8 && rowIndex != 9)
+                {
+                    FontChange(wb, "label", newRow, 1);
+                }
+                if (rowIndex == 4)
+                {
+                    FontChange(wb, "bgBlack", newRow, 3);
+                    FontChange(wb, "bgBlack", newRow, 4);
+                    FontChange(wb, "bgBlack", newRow, 5);
+                    FontChange(wb, "bgBlack", newRow, 6);
+                }
+                if (rowIndex == 3)
+                {
+                    FontChange(wb, "bgBlack", newRow, 5);
+                    FontChange(wb, "bgBlack", newRow, 6);
+                }
+                rowIndex++;
+            }
 
+            //data body
+            rowIndex++;
+            foreach(var item in dataBodyExcelFiles)
+            {
+                var newRow = sheet.CreateRow(rowIndex);
+                newRow.CreateCell(0).SetCellValue(item.column1);
+                newRow.CreateCell(1).SetCellValue(item.column2);
+
+                newRow.CreateCell(2).SetCellValue(item.column3);
+                newRow.CreateCell(3).SetCellValue(item.column4);
+                newRow.CreateCell(4).SetCellValue(item.column5);
+                newRow.CreateCell(5).SetCellValue(item.column6);
+                newRow.CreateCell(6).SetCellValue(item.column7);
+                newRow.CreateCell(7).SetCellValue(item.column8);
                 rowIndex++;
             }
 
@@ -202,7 +231,7 @@ namespace WpfApp2
             fileStream.Close();
         }
 
-        private void FontChange(XSSFWorkbook wb, string caseFont, IRow row,int index)
+        private void FontChange(XSSFWorkbook wb, string caseFont, IRow row, int index)
         {
             IFont font = wb.CreateFont();
             ICellStyle cellStyle = wb.CreateCellStyle();
@@ -213,18 +242,30 @@ namespace WpfApp2
                     font.Boldweight = (short)FontBoldWeight.Bold;
                     cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
                     cellStyle.VerticalAlignment = NPOI.SS.UserModel.VerticalAlignment.Center;
+                    font.FontName = "MS PGothic";
+                    font.FontHeightInPoints = 16;
                     break;
                 case "label":
                     font.FontName = "MS PGothic";
                     font.FontHeightInPoints = 11;
                     cellStyle.FillForegroundColor = HSSFColor.Gold.Index;
                     break;
+                case "content":
+                    font.FontName = "MS PGothic";
+                    font.FontHeightInPoints = 11;
+                    cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;
+                    cellStyle.VerticalAlignment = NPOI.SS.UserModel.VerticalAlignment.Center;
+                    /*cellStyle.BorderBottom = BorderStyle.Thin;
+                    cellStyle.BorderLeft = BorderStyle.Thin;
+                    cellStyle.BorderRight = BorderStyle.Thin;
+                    cellStyle.BorderTop = BorderStyle.Thin;*/
+                    break;
                 case "bgBlack":
-                    cellStyle.BorderBottom = BorderStyle.None;
+                    /*cellStyle.BorderBottom = BorderStyle.None;
                     cellStyle.BorderLeft = BorderStyle.None;
                     cellStyle.BorderRight = BorderStyle.None;
-                    cellStyle.BorderTop = BorderStyle.None;
-                    cellStyle.FillForegroundColor = HSSFColor.Grey80Percent.Index;
+                    cellStyle.BorderTop = BorderStyle.None;*/
+                    cellStyle.FillForegroundColor = HSSFColor.Grey50Percent.Index;
                     cellStyle.FillBackgroundColor = HSSFColor.Red.Index;
                     break;
                 default:
@@ -235,6 +276,7 @@ namespace WpfApp2
             cellStyle.SetFont(font);
             row.GetCell(index).CellStyle = cellStyle;
         }
+
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
