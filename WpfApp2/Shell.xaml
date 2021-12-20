@@ -11,7 +11,6 @@
     <Grid>
         <ItemsControl prism:RegionManager.RegionName="Shell">
             <Button Content="OpenDialogFile" Click="Button_Click"/>
-            <Button Content="ProcessFileExcel" Click="Button_Click_1"/>
             <Button Content="ExportDataToExcelFile" Click="Button_Click_2"/>
             <DataGrid Height="200" x:Name="dtgExcelReport2"></DataGrid>
 
