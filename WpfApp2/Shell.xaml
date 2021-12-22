@@ -13,6 +13,7 @@
             <Button Content="OpenDialogFile" Click="Button_Click"/>
             <Button Content="ExportDataToExcelFile" Click="Button_Click_2"/>
             <DataGrid Height="200" x:Name="dtgExcelReport2"></DataGrid>
+            <TextBlock Text="Path Files Was Convert" Name="textBlock1"></TextBlock>
 
         </ItemsControl>
 

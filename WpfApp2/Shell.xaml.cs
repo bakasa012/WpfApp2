@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
+using NPOI.OpenXml4Net.OPC;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
@@ -29,16 +30,29 @@ namespace WpfApp2
     public partial class Shell : Window
     {
         private string pathFile;
+        private string userLocal1 = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+ @"\DataExcelImport";
+        private string pathFolderImportFileExcelGlobal = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\DataExcelImport";//@"C:\Users\lieu.hong.thai\Downloads\dataExcel";//@"C:\DataExcelImport";
+        private string pathFolderExportFileExcelGlobal = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\DataExcelExport";//@"C:\DataExcelExport\";
+        //int rowIndex = 0;
+        private List<DataBinddingExcel> dataBinddingExcels = new List<DataBinddingExcel>();
+        private List<DataBodyExcelFile> dataBodyExcelFiles = new List<DataBodyExcelFile>();
+        List<string> files = new List<string>();
 
         public Shell()
         {
             InitializeComponent();
+            checkPathOrCreateFolder(pathFolderImportFileExcelGlobal);
+            checkPathOrCreateFolder(pathFolderExportFileExcelGlobal);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog();
 
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            processConverFileExcel();
         }
         private void OpenFileDialog()
         {
@@ -53,7 +67,67 @@ namespace WpfApp2
                 ReadFileExcelWitdNPOI(openFileDialog.FileName);
             }
         }
+        private void checkPathOrCreateFolder(string path)
+        {
+            if (Directory.Exists(path))
+            {
 
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        private void processConverFileExcel()
+        {
+            //C:\DataExcelImport\3870_GEO北九州三ヶ森店-【10月末〆】10月度自己調達許諾シール給付申請書 (2).xls
+            recursiveDirectory(pathFolderImportFileExcelGlobal);
+            string[] files = this.files.ToArray();
+            //string[] files = Directory.GetFiles(pathFolderImportFileExcelGlobal);
+            for (int i = 0; i < files.Length; i++)
+            {
+                string fileExt = System.IO.Path.GetExtension(files[i]);
+                string[] folder = System.IO.Directory.GetDirectories(pathFolderImportFileExcelGlobal);
+                if (fileExt == ".xls" || fileExt == ".xlsx")
+                {
+                    textBlock1.Text = files[i];
+                    this.ReadFileExcelWitdNPOI(@files[i]);
+                    this.ExportFileExcel(pathFolderExportFileExcelGlobal + @"\" + System.IO.Path.GetFileName(files[i]).ToString().Split('.')[0] + i.ToString() + ".xlsx");//("./demo.xlsx");
+                }
+
+            }
+            this.files.Clear();
+            string strPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            textBlock1.Text = strPath;
+            MessageBox.Show(pathFolderImportFileExcelGlobal + " " + "Files was conver : " + files.Length.ToString(), "Information!"+ userLocal1);
+
+        }
+        private void recursiveDirectory(string path)
+        {
+            string[] folder = Directory.GetDirectories(path);
+            for (int i = 0; i < Directory.GetFiles(path).Length; i++)
+            {
+                files.Add(Directory.GetFiles(path)[i]);
+
+            }
+            if (folder.Length >0)
+            {
+                for (int i = 0; i < folder.Length; i++)
+                {
+                    recursiveDirectory(folder[i]);
+                }
+            }
+            //else
+            //{
+
+            //    for (int i = 0; i < Directory.GetFiles(path).Length; i++)
+            //    {
+            //        files.Add(Directory.GetFiles(path)[i]);
+
+            //    }
+            //}
+        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ReadFileExcelWitdNPOI(pathFile);
@@ -67,69 +141,107 @@ namespace WpfApp2
                 Console.WriteLine(item);
             }
         }
-        int rowIndex = 0;
-        List<DataBinddingExcel> dataBinddingExcels = new List<DataBinddingExcel>();
-        List<DataBodyExcelFile> dataBodyExcelFiles = new List<DataBodyExcelFile>();
         private void ReadFileExcelWitdNPOI(string pathFile)
         {
+            
+            //OPCPackage pkg = OPCPackage.Open(pathFile);
+            IWorkbook wb = null;
             dataBinddingExcels.Clear();
             dataBodyExcelFiles.Clear();
-            FileStream fileStream = new FileStream(@pathFile, FileMode.Open);
-            HSSFWorkbook wb = new HSSFWorkbook(fileStream);
-            ISheet sheet = wb.GetSheetAt(0);
-            int lastRow = sheet.LastRowNum;
-            bool isDataBody = false;
-            while (true)
+            using (FileStream fileStream = new FileStream(@pathFile, FileMode.Open, FileAccess.Read)) 
             {
-                var nowRow = sheet.GetRow(rowIndex);
-                if (nowRow != null)
+                string fileExt = System.IO.Path.GetExtension(pathFile);
+                try
                 {
-                    var MSSV = nowRow.GetCell(0)?.StringCellValue;
-                    var Name = nowRow.GetCell(1)?.ToString();
-                    var Phone = nowRow.GetCell(2)?.StringCellValue;
-                    if(nowRow.GetCell(1)?.ToString() == "ISBNコード")
+                    switch (fileExt.ToLower())
                     {
-                        isDataBody = true;
+                        case ".xls":
+                            wb = new HSSFWorkbook(fileStream);
+                            break;
+                        case ".xlsx":
+                            wb = new XSSFWorkbook(fileStream);
+                            break;
+                        default:
+                            break;
                     }
-                    if (!isDataBody)
+                }
+                catch (Exception ex)
+                {
+                    //wb = new XSSFWorkbook(fileStream);
+                }
+                /*finally
+                {
+                    wb = new HSSFWorkbook(fileStream);
+                }*/
+
+                ISheet sheet = wb.GetSheetAt(0);
+                int lastRow = sheet.LastRowNum;
+                bool isDataBody = false;
+                int rowIndex = 0;
+                while (true)
+                {
+                    var nowRow = sheet.GetRow(rowIndex);
+                    if (nowRow != null)
+                    {
+                        if (nowRow.GetCell(1)?.ToString() == "ISBNコード")
+                        {
+                            isDataBody = true;
+                        }
+                        if (!isDataBody)
+                        {
+                            DataBinddingExcel dataBinddingExcel = new DataBinddingExcel()
+                            {
+                                column1 = nowRow.GetCell(0)?.ToString(),
+                                column2 = nowRow.GetCell(1)?.ToString(),
+                                column3 = nowRow.GetCell(2)?.ToString().Trim(),
+                                column4 = nowRow.GetCell(3)?.ToString(),
+                                column5 = nowRow.GetCell(4)?.ToString(),
+                                column6 = nowRow.GetCell(5)?.ToString(),
+                                column7 = nowRow.GetCell(6)?.ToString(),
+                                column8 = nowRow.GetCell(7)?.ToString(),
+                            };
+                            dataBinddingExcels.Add(dataBinddingExcel);
+                        }
+                        else
+                        {
+                            DataBodyExcelFile dataBodyExcelFile = new DataBodyExcelFile()
+                            {
+                                column1 = nowRow.GetCell(0)?.ToString(),
+                                column2 = nowRow.GetCell(1)?.ToString(),
+                                column3 = nowRow.GetCell(2)?.ToString(),
+                                column4 = nowRow.GetCell(3)?.ToString(),
+                                column5 = nowRow.GetCell(4)?.ToString(),
+                                column6 = nowRow.GetCell(5)?.ToString(),
+                                column7 = nowRow.GetCell(6)?.ToString(),
+                                column8 = nowRow.GetCell(7)?.ToString(),
+                            };
+                            dataBodyExcelFiles.Add(dataBodyExcelFile);
+                        }
+
+                    }
+                    else if(!isDataBody)
                     {
                         DataBinddingExcel dataBinddingExcel = new DataBinddingExcel()
                         {
-                            column1 = nowRow.GetCell(0)?.ToString(),
-                            column2 = nowRow.GetCell(1)?.ToString(),
-                            column3 = nowRow.GetCell(2)?.ToString().Trim(),
-                            column4 = nowRow.GetCell(3)?.ToString(),
-                            column5 = nowRow.GetCell(4)?.ToString(),
-                            column6 = nowRow.GetCell(5)?.ToString(),
-                            column7 = nowRow.GetCell(6)?.ToString(),
-                            column8 = nowRow.GetCell(7)?.ToString(),
+                            column1 = "",
+                            column2 = "",
+                            column3 = "",
+                            column4 = "",
+                            column5 = "",
+                            column6 = "",
+                            column7 = "",
+                            column8 = "",
                         };
                         dataBinddingExcels.Add(dataBinddingExcel);
                     }
-                    else
-                    {
-                        DataBodyExcelFile dataBodyExcelFile = new DataBodyExcelFile()
-                        {
-                            column1 = nowRow.GetCell(0)?.ToString(),
-                            column2 = nowRow.GetCell(1)?.ToString(),
-                            column3 = nowRow.GetCell(2)?.ToString(),
-                            column4 = nowRow.GetCell(3)?.ToString(),
-                            column5 = nowRow.GetCell(4)?.ToString(),
-                            column6 = nowRow.GetCell(5)?.ToString(),
-                            column7 = nowRow.GetCell(6)?.ToString(),
-                            column8 = nowRow.GetCell(7)?.ToString(),
-                        };
-                        dataBodyExcelFiles.Add(dataBodyExcelFile);
-                    }
-                    
+                    if (rowIndex >= lastRow)
+                        break;
+                    rowIndex++;
                 }
-                if (rowIndex >= lastRow)
-                    break;
-                rowIndex++;
-            }
 
-            dtgExcelReport2.ItemsSource = dataBinddingExcels;
-            fileStream.Close();
+                dtgExcelReport2.ItemsSource = dataBinddingExcels;
+                fileStream.Close();
+            };
         }
         private void ExportFileExcel(string output)
         {
@@ -137,16 +249,16 @@ namespace WpfApp2
             ISheet sheet = wb.CreateSheet();
             var row = sheet.CreateRow(0);
             row.CreateCell(1);
-            //background color
-            //cellStyleLabel.FillForegroundColor = HSSFColor.Gold.Index;
-            //end
             //Merge column
             CellRangeAddress cellRange = new CellRangeAddress(0, 0, 1, 7);
             sheet.AddMergedRegion(cellRange);
             sheet.AddMergedRegion(new CellRangeAddress(2, 2, 5, 7));
             sheet.AddMergedRegion(new CellRangeAddress(3, 3, 5, 7));
-            sheet.AddMergedRegion(new CellRangeAddress(4, 4, 5, 7));
+            sheet.AddMergedRegion(new CellRangeAddress(4, 4, 3, 7));
             sheet.AddMergedRegion(new CellRangeAddress(5, 5, 3, 7));
+            sheet.AddMergedRegion(new CellRangeAddress(6, 6, 3, 4));
+            sheet.AddMergedRegion(new CellRangeAddress(6, 6, 5, 7));
+            sheet.AddMergedRegion(new CellRangeAddress(7, 7, 4, 7));
             //set column width
             sheet.AutoSizeColumn(0);
             sheet.SetColumnWidth(1, 4000);
@@ -164,6 +276,7 @@ namespace WpfApp2
 
             int rowIndex = 1;
             dataBinddingExcels.RemoveAt(0);
+            dataBinddingExcels.RemoveAt(dataBinddingExcels.Count - 1);
             //data header
             foreach (var item in dataBinddingExcels)
             {
@@ -181,12 +294,15 @@ namespace WpfApp2
                 
                 newRow.CreateCell(6).SetCellValue(item.column7);
                 newRow.CreateCell(7).SetCellValue(item.column8);
-                if (rowIndex != 8 && rowIndex != 9)
-                for (int i = 1; i <= 7; i++)
-                {
-                    FontChange(wb, "content", newRow, i);
-                }
-                if (item.column2 != null && item.column2 != "" && item.column2 != "null" && rowIndex != 8 && rowIndex != 9)
+                if (rowIndex < 8)
+                    for (int i = 1; i <= 7; i++)
+                    {
+                        FontChange(wb, "content", newRow, i);
+                    }
+                else
+                    for (int i = 1; i <= 7; i++)
+                        FontChange(wb, "description",newRow, i);
+                if (item.column2 != null && item.column2 != "" && item.column2 != "null" && rowIndex <= 8 )
                 {
                     FontChange(wb, "label", newRow, 1);
                 }
@@ -221,6 +337,10 @@ namespace WpfApp2
                 newRow.CreateCell(5).SetCellValue(item.column6);
                 newRow.CreateCell(6).SetCellValue(item.column7);
                 newRow.CreateCell(7).SetCellValue(item.column8);
+                for (int i = 1; i <= 7; i++)
+                {
+                    FontChange(wb, "content", newRow, i);
+                }
                 rowIndex++;
             }
 
@@ -229,7 +349,7 @@ namespace WpfApp2
 
             if (File.Exists(output))
                 File.Delete(output);
-            FileStream fileStream = new FileStream("./demo.xlsx", FileMode.CreateNew,FileAccess.ReadWrite,FileShare.None);
+            FileStream fileStream = new FileStream(output, FileMode.CreateNew,FileAccess.ReadWrite,FileShare.None);
             wb.Write(fileStream);
             fileStream.Close();
         }
@@ -263,6 +383,10 @@ namespace WpfApp2
                     cellStyle.BorderRight = BorderStyle.Thin;
                     cellStyle.BorderTop = BorderStyle.Thin;*/
                     break;
+                case "description":
+                    font.FontName = "MS PGothic";
+                    font.FontHeightInPoints = 11;
+                    break;
                 case "bgBlack":
                     /*cellStyle.BorderBottom = BorderStyle.None;
                     cellStyle.BorderLeft = BorderStyle.None;
@@ -280,10 +404,5 @@ namespace WpfApp2
             row.GetCell(index).CellStyle = cellStyle;
         }
 
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            ExportFileExcel("./demo.xlsx");
-        }
     }
 }

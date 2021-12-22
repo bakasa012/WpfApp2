@@ -5252,19 +5252,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LIEU HONG THAI\\.nuget\\packages\\": {}
+    "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LIEU HONG THAI\\source\\repos\\ExportImportExcelFile\\WpfApp2\\WpfApp2\\WpfApp2.csproj",
+      "projectUniqueName": "C:\\Users\\lieu.hong.thai\\Documents\\GitHub\\WpfApp2\\WpfApp2\\WpfApp2.csproj",
       "projectName": "WpfApp2",
-      "projectPath": "C:\\Users\\LIEU HONG THAI\\source\\repos\\ExportImportExcelFile\\WpfApp2\\WpfApp2\\WpfApp2.csproj",
-      "packagesPath": "C:\\Users\\LIEU HONG THAI\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LIEU HONG THAI\\source\\repos\\ExportImportExcelFile\\WpfApp2\\WpfApp2\\obj\\",
+      "projectPath": "C:\\Users\\lieu.hong.thai\\Documents\\GitHub\\WpfApp2\\WpfApp2\\WpfApp2.csproj",
+      "packagesPath": "C:\\Users\\lieu.hong.thai\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lieu.hong.thai\\Documents\\GitHub\\WpfApp2\\WpfApp2\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\LIEU HONG THAI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lieu.hong.thai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5278,8 +5283,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\LIEU HONG THAI\\source\\repos\\ExportImportExcelFile\\WpfApp2\\Presentation\\Presentation.csproj": {
-              "projectPath": "C:\\Users\\LIEU HONG THAI\\source\\repos\\ExportImportExcelFile\\WpfApp2\\Presentation\\Presentation.csproj"
+            "C:\\Users\\lieu.hong.thai\\Documents\\GitHub\\WpfApp2\\Presentation\\Presentation.csproj": {
+              "projectPath": "C:\\Users\\lieu.hong.thai\\Documents\\GitHub\\WpfApp2\\Presentation\\Presentation.csproj"
             }
           }
         }
