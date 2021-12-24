@@ -130,7 +130,7 @@ namespace WpfApp2
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ReadFileExcelWitdNPOI(pathFile);
+            //ReadFileExcelWitdNPOI(pathFile);
         }
         private void ReadFileExceelWithExcelMapper(string pathFile)
         {
@@ -246,7 +246,8 @@ namespace WpfApp2
         private void ExportFileExcel(string output)
         {
             XSSFWorkbook wb = new XSSFWorkbook();
-            ISheet sheet = wb.CreateSheet();
+            ISheet sheet = wb.CreateSheet(Name="Sheet1");
+            int numData = sheet.LastRowNum;
             var row = sheet.CreateRow(0);
             row.CreateCell(1);
             //Merge column
